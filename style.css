@@ -11,9 +11,7 @@
     align-items: flex-end;
     justify-content: flex-end;
     font-size: 5rem;
-    
 }
-
 #buttons {
     display: grid;
     height: 80%;
