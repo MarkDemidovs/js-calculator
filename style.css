@@ -1,0 +1,25 @@
+#calculator {
+    width: 50vh;
+    height: 75vh;
+    background-color: black;
+}
+
+#screen {
+    color: white;
+    height: 20%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    font-size: 5rem;
+    
+}
+
+#buttons {
+    display: grid;
+    height: 80%;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+#zero {
+    grid-column: span 2
+}
