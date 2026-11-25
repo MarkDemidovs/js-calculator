@@ -1,51 +1,104 @@
 const screenValue = document.getElementById("screen");
 const keypad = document.getElementById("buttons");
 
-let currentValue = 25;
-let equationValue = "";
+let nextValue = 0;
+let secondPart = false;
+let equationValue = 0;
+let currentOperation = null;
+
+const currentAction = Object.freeze({
+    ADDITION: "addition",
+    SUBTRACTION: "subtraction",
+    MULTIPLICATION: "multiplication",
+    DIVISION: "division",
+})
+
+function appendDigit(digit) {
+    if (secondPart) {
+        nextValue = Number(`${nextValue}${digit}`);
+    } else {
+        equationValue += digit;
+    }
+}
 
 keypad.addEventListener("click", (event) => {
     if (!event.target.matches("button")) return;
 
     switch (event.target.id) {
         case "clear":
+            nextValue = 0;
             equationValue = 0;
+            secondPart = false;
             break;
         case "one":
-            equationValue += "1";
+            appendDigit("1");
             break;
         case "two":
-            equationValue += "2";
+            appendDigit("2");
             break;
         case "three":
-            equationValue += "3";
+            appendDigit("3");
             break;
         case "four":
-            equationValue += "4";
+            appendDigit("4");
             break;
         case "five":
-            equationValue += "5";
+            appendDigit("5");
             break;
         case "six":
-            equationValue += "6";
+            appendDigit("6");
             break;
         case "seven":
-            equationValue += "7";
+            appendDigit("7");
             break;
         case "eight":
-            equationValue += "8";
+            appendDigit("8");
             break;
         case "nine":
-            equationValue += "9";
+            appendDigit("9");
             break;
         case "zero":
-            equationValue += "0";
+            appendDigit("0");
             break;
         case "delete":
-            equationValue = equationValue.slice(0, -1);
+            if (secondPart) {
+                nextValue = Number(String(nextValue).slice(0, -1)) || 0;
+            } else {
+                equationValue = equationValue.slice(0, -1);
+            }
             break;
+
+        case "add":
+            if (!secondPart) {
+                secondPart = true;
+                screenValue.textContent = nextValue;
+            } else {
+                equationValue = Number(equationValue) + nextValue;
+                nextValue = 0;
+            }
+            currentOperation = currentAction.ADDITION;
+            break;
+        case "equals":
+            if (secondPart) {
+                switch(currentOperation) {
+                    case currentAction.ADDITION:
+                        equationValue = Number(equationValue) + nextValue;
+                        break;
+                    case currentAction.SUBTRACTION:
+                        equationValue = Number(equationValue) - nextValue;
+                        break;
+                    case currentAction.MULTIPLICATION:
+                        equationValue = Number(equationValue) * nextValue;
+                        break;
+                    case currentAction.DIVISION:
+                        equationValue = Number(equationValue) / nextValue;
+                        break;
+                }
+                equationValue = Number(equationValue) + nextValue;
+            }
     }
 
 
-    screenValue.textContent = Number(equationValue);
+    screenValue.textContent = secondPart ? nextValue : Number(equationValue);
+
 });
