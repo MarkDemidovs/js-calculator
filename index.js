@@ -94,11 +94,12 @@ keypad.addEventListener("click", (event) => {
                         equationValue = Number(equationValue) / nextValue;
                         break;
                 }
-                equationValue = Number(equationValue) + nextValue;
+                currentOperation = null;
+                secondPart = false;
+
             }
     }
 
 
     screenValue.textContent = secondPart ? nextValue : Number(equationValue);
-
 });
