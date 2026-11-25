@@ -26,6 +26,19 @@ function appendDigit(digit) {
     }
 }
 
+function calculateResult() {
+    switch (currentOperation) {
+        case currentAction.ADDITION:
+            return Number(equationValue) + nextValue;
+        case currentAction.SUBTRACTION:
+            return Number(equationValue) - nextValue;
+        case currentAction.MULTIPLICATION:
+            return Number(equationValue) * nextValue;
+        case currentAction.DIVISION:
+            return Number(equationValue) / nextValue;
+    }
+}
+
 keypad.addEventListener("click", (event) => {
     if (!event.target.matches("button")) return;
 
@@ -75,31 +88,33 @@ keypad.addEventListener("click", (event) => {
             break;
 
         case "add":
-            if (!secondPart) {
-                secondPart = true;
-                screenValue.textContent = nextValue;
-            } else {
-                equationValue = Number(equationValue) + nextValue;
+        case "subtract":
+        case "multiply":
+        case "divide":
+            if (secondPart) {
+                equationValue = calculateResult();
                 nextValue = 0;
+            } else {
+                secondPart = true;
             }
-            currentOperation = currentAction.ADDITION;
+            switch (event.target.id) {
+                case "add":
+                    currentOperation = currentAction.ADDITION;
+                    break;
+                case "subtract":
+                    currentOperation = currentAction.SUBTRACTION;
+                    break;
+                case "multiply":
+                    currentOperation = currentAction.MULTIPLICATION;
+                    break;
+                case "divide":
+                    currentOperation = currentAction.DIVISION;
+                    break;
+            }
             break;
         case "equals":
             if (secondPart) {
-                switch(currentOperation) {
-                    case currentAction.ADDITION:
-                        equationValue = Number(equationValue) + nextValue;
-                        break;
-                    case currentAction.SUBTRACTION:
-                        equationValue = Number(equationValue) - nextValue;
-                        break;
-                    case currentAction.MULTIPLICATION:
-                        equationValue = Number(equationValue) * nextValue;
-                        break;
-                    case currentAction.DIVISION:
-                        equationValue = Number(equationValue) / nextValue;
-                        break;
-                }
+                equationValue = calculateResult();
                 currentOperation = null;
                 secondPart = false;
                 nextValue = 0;
