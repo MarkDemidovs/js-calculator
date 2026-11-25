@@ -5,6 +5,7 @@ let nextValue = 0;
 let secondPart = false;
 let equationValue = 0;
 let currentOperation = null;
+let startFresh = false;
 
 const currentAction = Object.freeze({
     ADDITION: "addition",
@@ -17,6 +18,10 @@ function appendDigit(digit) {
     if (secondPart) {
         nextValue = Number(`${nextValue}${digit}`);
     } else {
+        if (startFresh) {
+            equationValue = "";
+            startFresh = false;
+        }
         equationValue += digit;
     }
 }
@@ -29,6 +34,7 @@ keypad.addEventListener("click", (event) => {
             nextValue = 0;
             equationValue = 0;
             secondPart = false;
+            startFresh = false;
             break;
         case "one":
             appendDigit("1");
@@ -96,6 +102,8 @@ keypad.addEventListener("click", (event) => {
                 }
                 currentOperation = null;
                 secondPart = false;
+                nextValue = 0;
+                startFresh = true;
 
             }
     }
