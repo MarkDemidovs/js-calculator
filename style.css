@@ -18,6 +18,15 @@
     grid-template-columns: repeat(4, 1fr);
 }
 
+button {
+    border-radius: 100%;
+    color: white;
+}
+
+.operation {
+    background-color: orange;
+}
+
 #zero {
     grid-column: span 2
 }
