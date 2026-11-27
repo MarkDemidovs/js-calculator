@@ -1,13 +1,13 @@
 #calculator {
     width: 50vh;
-    height: 85vh;
+    height: 70vh;
     padding-bottom: 3vh;
     background-color: black;
 }
 
 #screen {
     color: white;
-    height: 30%;
+    height: 15%;
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
