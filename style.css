@@ -32,6 +32,7 @@ button {
     background-color: rgb(54, 54, 54);
     border: none;
     font-size: 2rem;
+    margin: 2px
 }
 
 .operation {
@@ -41,4 +42,7 @@ button {
 #zero {
     grid-column: span 2;
     aspect-ratio: auto;
+    border-radius: 999px;
+    text-align: left;
+    padding-left: 1.5rem;
 }
