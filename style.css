@@ -1,6 +1,6 @@
 #calculator {
     width: 50vh;
-    height: 75vh;
+    height: 85vh;
     padding-bottom: 3vh;
     background-color: black;
 }
@@ -17,8 +17,8 @@
     display: grid;
     height: 70%;
     grid-template-columns: repeat(4, 1fr);
-    margin-left: 6px;
-    margin-right: 6px;
+    margin-left: 5px;
+    margin-right: 5px;
     
 }
 .upper-buttons {
@@ -27,9 +27,11 @@
 
 button {
     border-radius: 100%;
+    aspect-ratio: 1 / 1;
     color: white;
     background-color: rgb(54, 54, 54);
     border: none;
+    font-size: 2rem;
 }
 
 .operation {
@@ -37,5 +39,6 @@ button {
 }
 
 #zero {
-    grid-column: span 2
+    grid-column: span 2;
+    aspect-ratio: auto;
 }
