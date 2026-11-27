@@ -1,4 +1,5 @@
-const screenValue = document.getElementById("screen");
+const screen = document.getElementById("screen");
+const screenValue = document.getElementById("screen-value");
 const keypad = document.getElementById("buttons");
 
 let nextValue = 0;
@@ -38,6 +39,25 @@ function calculateResult() {
             return Number(equationValue) / nextValue;
     }
 }
+
+function fitScreen() {
+    screenValue.style.fontSize = "";
+
+    const maxFontSize = parseFloat(getComputedStyle(screenValue).fontSize);
+    const minFontSize = 16;
+    const screenStyle = getComputedStyle(screen);
+    const availableWidth = screen.clientWidth
+        - parseFloat(screenStyle.paddingLeft)
+        - parseFloat(screenStyle.paddingRight);
+    let fontSize = maxFontSize;
+
+    while (screenValue.scrollWidth > availableWidth && fontSize > minFontSize) {
+        fontSize = Math.max(minFontSize, fontSize - 1);
+        screenValue.style.fontSize = `${fontSize}px`;
+    }
+}
+
+fitScreen();
 
 keypad.addEventListener("click", (event) => {
     if (!event.target.matches("button")) return;
@@ -125,4 +145,5 @@ keypad.addEventListener("click", (event) => {
 
 
     screenValue.textContent = secondPart ? nextValue : Number(equationValue);
+    fitScreen();
 });
